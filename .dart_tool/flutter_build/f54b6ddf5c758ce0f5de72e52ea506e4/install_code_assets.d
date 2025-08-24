@@ -1,0 +1,1 @@
+ D:\\Documents\\flutify\\.dart_tool\\flutter_build\\f54b6ddf5c758ce0f5de72e52ea506e4\\native_assets.json: 
