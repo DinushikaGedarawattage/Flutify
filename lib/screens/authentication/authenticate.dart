@@ -1,4 +1,3 @@
-import 'package:flutify/screens/authentication/register.dart';
 import 'package:flutify/screens/authentication/sign_in.dart';
 import 'package:flutter/material.dart';
 
