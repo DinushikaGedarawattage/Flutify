@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "982813905225",
+    "project_id": "flutify-9dc17",
+    "storage_bucket": "flutify-9dc17.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:982813905225:android:744587d04f30aa6189ca98",
+        "android_client_info": {
+          "package_name": "com.example.flutify"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSau9JVZBW8fyy3RciPD1l3nWh4-Q1vp8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
