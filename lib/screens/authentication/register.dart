@@ -39,95 +39,103 @@ class _RegisterState extends State<Register> {
             children: [
               Text(description, style: descriptionStyle),
               Center(child: Image.asset("assets/profile.png", height: 200)),
-              Form(
-                key: _formkey,
-                child: Column(
-                  children: [
-                    TextFormField(
-                      validator: (val) {
-                        if (val == null || val.isEmpty) {
-                          return 'Enter a Valid Email';
-                        }
-                        return null;
-                      },
-                      onChanged: (val) => setState(() {
-                        email = val;
-                      }),
-                    ),
-                    TextFormField(
-                      obscureText: true,
-                      validator: (val) {
-                        if (val == null || val.length < 6) {
-                          return 'Enter a Valid Password';
-                        }
-                        return null;
-                      },
-                      onChanged: (val) => setState(() {
-                        password = val;
-                      }),
-                    ),
-                    const SizedBox(height: 20),
-                    const Text(
-                      "Login with social accounts",
-                      style: descriptionStyle,
-                    ),
-                    const SizedBox(height: 20),
-                    GestureDetector(
-                      onTap: () {
-                        // Handle Google sign-in
-                      },
-                      child: Center(
-                        child: Image.asset("assets/google.png", height: 50),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Form(
+                  key: _formkey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        decoration: textInputDecoration,
+                        validator: (val) {
+                          if (val == null || val.isEmpty) {
+                            return 'Enter a Valid Email';
+                          }
+                          return null;
+                        },
+                        onChanged: (val) => setState(() {
+                          email = val;
+                        }),
                       ),
-                    ),
-                    const SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          "Do not have an account? ",
-                          style: descriptionStyle,
+                      const SizedBox(height: 14),
+                      TextFormField(
+                        obscureText: true,
+                        decoration: textInputDecoration.copyWith(
+                          hintText: "Password",
                         ),
-                        const SizedBox(width: 10),
-                        GestureDetector(
-                          onTap: () {
-                            // Navigate to the registration screen
-                          },
-                          child: Text(
-                            "LOG IN",
-                            style: TextStyle(
-                              color: mainBlue,
-                              fontWeight: FontWeight.w300,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    GestureDetector(
-                      onTap: () {
-                        // Handle login
-                      },
-                      child: Container(
-                        height: 40,
-                        width: 200,
-                        decoration: BoxDecoration(
-                          color: bgBlack,
-                          borderRadius: BorderRadius.circular(100),
-                          border: Border.all(width: 2, color: mainYellow),
-                        ),
+                        validator: (val) {
+                          if (val == null || val.length < 6) {
+                            return 'Enter a Valid Password';
+                          }
+                          return null;
+                        },
+                        onChanged: (val) => setState(() {
+                          password = val;
+                        }),
+                      ),
+                      const SizedBox(height: 20),
+                      const Text(
+                        "Login with social accounts",
+                        style: descriptionStyle,
+                      ),
+                      const SizedBox(height: 20),
+                      GestureDetector(
+                        onTap: () {
+                          // Handle Google sign-in
+                        },
                         child: Center(
-                          child: const Text(
-                            "REGISTER",
-                            style: TextStyle(
-                              color: mainWhite,
-                              fontWeight: FontWeight.w500,
+                          child: Image.asset("assets/google.png", height: 50),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            "Do not have an account? ",
+                            style: descriptionStyle,
+                          ),
+                          const SizedBox(width: 10),
+                          GestureDetector(
+                            onTap: () {
+                              // Navigate to the registration screen
+                            },
+                            child: Text(
+                              "LOG IN",
+                              style: TextStyle(
+                                color: mainBlue,
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      GestureDetector(
+                        onTap: () {
+                          // Handle login
+                        },
+                        child: Container(
+                          height: 40,
+                          width: 200,
+                          decoration: BoxDecoration(
+                            color: bgBlack,
+                            borderRadius: BorderRadius.circular(100),
+                            border: Border.all(width: 2, color: mainYellow),
+                          ),
+                          child: Center(
+                            child: const Text(
+                              "REGISTER",
+                              style: TextStyle(
+                                color: mainWhite,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],
