@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutify/constants/colors.dart';
 import 'package:flutify/constants/description.dart';
 import 'package:flutify/constants/styles.dart';
@@ -5,7 +7,8 @@ import 'package:flutify/services/auth.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
-  const Register({super.key});
+  final Function toggle;
+  const Register({super.key, required this.toggle});
 
   @override
   State<Register> createState() => _RegisterState();
@@ -19,6 +22,8 @@ class _RegisterState extends State<Register> {
   // email and password
   String email = '';
   String password = '';
+  String error = '';
+  String successMessage = '';
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +51,7 @@ class _RegisterState extends State<Register> {
                   child: Column(
                     children: [
                       TextFormField(
+                        style: TextStyle(color: mainWhite),
                         decoration: textInputDecoration,
                         validator: (val) {
                           if (val == null || val.isEmpty) {
@@ -59,6 +65,7 @@ class _RegisterState extends State<Register> {
                       ),
                       const SizedBox(height: 14),
                       TextFormField(
+                        style: TextStyle(color: mainWhite),
                         obscureText: true,
                         decoration: textInputDecoration.copyWith(
                           hintText: "Password",
@@ -73,6 +80,14 @@ class _RegisterState extends State<Register> {
                           password = val;
                         }),
                       ),
+                      const SizedBox(height: 20),
+                      if (error.isNotEmpty)
+                        Text(error, style: TextStyle(color: Colors.red)),
+                      if (successMessage.isNotEmpty)
+                        Text(
+                          successMessage,
+                          style: TextStyle(color: Colors.green),
+                        ),
                       const SizedBox(height: 20),
                       const Text(
                         "Login with social accounts",
@@ -92,12 +107,13 @@ class _RegisterState extends State<Register> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Text(
-                            "Do not have an account? ",
+                            "Do you have an account? ",
                             style: descriptionStyle,
                           ),
                           const SizedBox(width: 10),
                           GestureDetector(
                             onTap: () {
+                              widget.toggle();
                               // Navigate to the registration screen
                             },
                             child: Text(
@@ -112,8 +128,19 @@ class _RegisterState extends State<Register> {
                       ),
                       const SizedBox(height: 20),
                       GestureDetector(
-                        onTap: () {
-                          // Handle login
+                        onTap: () async {
+                          dynamic result = await _auth
+                              .registerWithEmailAndPassword(email, password);
+                          if (result == null) {
+                            setState(() {
+                              error =
+                                  "Please enter a valid email and password !";
+                            });
+                          } else {
+                            setState(() {
+                              successMessage = "Registration successful!";
+                            });
+                          }
                         },
                         child: Container(
                           height: 40,

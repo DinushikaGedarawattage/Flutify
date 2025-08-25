@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutify/constants/colors.dart';
 
 class SignIn extends StatefulWidget {
-  const SignIn({super.key});
+  final Function toggle;
+  // ignore: use_super_parameters
+  const SignIn({super.key, required this.toggle});
 
   @override
   State<SignIn> createState() => _SignInState();
@@ -20,6 +22,7 @@ class _SignInState extends State<SignIn> {
   // email and password
   String email = '';
   String password = '';
+  String error = '';
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +50,7 @@ class _SignInState extends State<SignIn> {
                   child: Column(
                     children: [
                       TextFormField(
+                        style: TextStyle(color: mainWhite),
                         decoration: textInputDecoration,
                         validator: (val) {
                           if (val == null || val.isEmpty) {
@@ -60,6 +64,8 @@ class _SignInState extends State<SignIn> {
                       ),
                       const SizedBox(height: 14),
                       TextFormField(
+                        style: TextStyle(color: mainWhite),
+                        obscureText: true,
                         decoration: textInputDecoration.copyWith(
                           hintText: "Password",
                         ),
@@ -73,6 +79,9 @@ class _SignInState extends State<SignIn> {
                           password = val;
                         }),
                       ),
+                      const SizedBox(height: 20),
+                      Text(error, style: TextStyle(color: Colors.red)),
+
                       const SizedBox(height: 20),
                       const Text(
                         "Login with social accounts",
@@ -98,6 +107,7 @@ class _SignInState extends State<SignIn> {
                           const SizedBox(width: 10),
                           GestureDetector(
                             onTap: () {
+                              widget.toggle();
                               // Navigate to the registration screen
                             },
                             child: Text(
@@ -112,8 +122,15 @@ class _SignInState extends State<SignIn> {
                       ),
                       const SizedBox(height: 20),
                       GestureDetector(
-                        onTap: () {
-                          // Handle login
+                        onTap: () async {
+                          dynamic result = await _auth
+                              .signInUsingEmailAndPassword(email, password);
+                          if (result == null) {
+                            setState(() {
+                              error =
+                                  "Please enter a valid email and password !";
+                            });
+                          }
                         },
                         child: Container(
                           height: 40,
@@ -136,7 +153,8 @@ class _SignInState extends State<SignIn> {
                       ),
                       const SizedBox(height: 14),
                       GestureDetector(
-                        onTap: () {
+                        onTap: () async {
+                          dynamic result = await _auth.signInAnonymously();
                           // Handle login
                         },
                         child: Container(
