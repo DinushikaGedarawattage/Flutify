@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutify/models/usermodel.dart';
+import 'package:flutify/screens/authentication/sign_in.dart';
 
 class AuthServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -27,6 +28,21 @@ class AuthServices {
   Future registerWithEmailAndPassword(String email, String password) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      User? user = result.user;
+      return _userWithFirebaseUserUid(user);
+    } catch (error) {
+      // ignore: avoid_print
+      print(error.toString());
+      return null;
+    }
+  }
+
+  Future signInUsingEmailAndPassword(String email, String password) async {
+    try {
+      UserCredential result = await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
