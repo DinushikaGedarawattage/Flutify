@@ -1,3 +1,3 @@
 import 'package:flutter/material.dart';
 
-const String description = "This is a description string.";
+const String description = "Welcome back! Sign in to Flutify.";
